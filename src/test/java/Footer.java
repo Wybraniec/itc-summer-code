@@ -38,11 +38,11 @@ public class Footer {
 
     @FindBy(css = "[id='footerContent'] div:nth-of-type(2) div:nth-of-type(4) div:nth-of-type(2) > a")
     private WebElement connectWithUsByTwitter;
-
-    @FindBy(css = "[id='footerContent'] div:nth-of-type(2) div:nth-of-type(4) div:nth-of-type(3) > a")
+    ////*[@id="footerContent"]/div[2]/div[4]/div[3]/a
+    @FindBy(css = "[id='footerContent'] div:nth-of-type(2) div:nth-of-type(4) div:nth-of-type(3)  a")
     private WebElement connectWithUsByPinterest;
 
-    @FindBy(css = "[id='footerContent'] div:nth-of-type(2) div:nth-of-type(4) div:nth-of-type(4) > a > img")
+    @FindBy(css = "[id='footerContent'] div:nth-of-type(2) div:nth-of-type(4) div:nth-of-type(4)  a  img")
     private WebElement connectWithUsByYT;
 
     public void helpButtonClick(){

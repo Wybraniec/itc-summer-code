@@ -69,25 +69,25 @@ public class FooterTest {
     }
     @Test
     public void testConnectWithUsByFB(){
-        browser.navigate().to("https://www.facebook.com/PsychicMarketplace");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         footer.connectWithUsByFBClick();
         assertTrue(browser.getCurrentUrl().startsWith("https://www.facebook.com/PsychicMarketplace"));
     }
     @Test
     public void testConnectWithUsByTwitter(){
-        browser.navigate().to("https://twitter.com/voiceofpsychic");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         footer.connectWithUsByTwitterClick();
         assertTrue(browser.getCurrentUrl().startsWith("https://twitter.com/voiceofpsychic"));
     }
     @Test
     public void testConnectWithUsByPinterest(){
-        browser.navigate().to("http://pinterest.com/voiceofpsychic/");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         footer.connectWithUsByPinterestClick();
         assertTrue(browser.getCurrentUrl().startsWith("http://pinterest.com/voiceofpsychic/"));
     }
     @Test
     public void testConnectWithUsByYT(){
-        browser.navigate().to("https://www.youtube.com/voiceofpsychic");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         footer.connectWithUsByYTClick();
         assertTrue(browser.getCurrentUrl().startsWith("https://www.youtube.com/voiceofpsychic"));
     }

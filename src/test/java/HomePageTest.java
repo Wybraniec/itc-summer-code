@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
+import static com.thoughtworks.selenium.SeleneseTestBase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -28,13 +29,14 @@ public class HomePageTest {
 
     @Test
     public void testRegisterToGet3Minutes(){
-        browser.navigate().to("https://itcrowd.pl/vop/register");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         homePage.registerToGet3MinutesClick();
-        assertTrue(browser.getCurrentUrl().startsWith("https://itcrowd.pl/vop/register"));
+        //assertTrue(browser.getCurrentUrl().startsWith("https://itcrowd.pl/vop/register"));
+        assertEquals("https://itcrowd.pl/vop/register",browser.getCurrentUrl());
     }
     @Test
     public void testAreYouPsychicJoin(){
-        browser.navigate().to("https://itcrowd.pl/vop/view/registerPsychic.jsf");
+        browser.navigate().to("https://itcrowd.pl/vop/");
         homePage.areYouPsychicJoinClick();
         assertTrue(browser.getCurrentUrl().startsWith("https://itcrowd.pl/vop/view/registerPsychic.jsf"));
     }

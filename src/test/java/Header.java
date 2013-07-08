@@ -43,7 +43,7 @@ public class Header {
     @FindBy(css= "div.span12 div:nth-of-type(1) ul.nav > li:nth-of-type(4) > a")
     private WebElement shoppingcartButton;
 
-    @FindBy(css = "li.languageMenu ul > li.nth-of-type(1) > script")
+    @FindBy(css = "ul li:nth-of-type(9) ul li:nth-of-type(1) a")
     private WebElement languageMenuEnglish;
 
     @FindBy(css = "li.languageMenu ul > li.nth-of-type(2) > script")
