@@ -41,7 +41,6 @@ public class SearchResultsTest {
     public void notFoundSearchEffectTest(){
         Assert.fail("Not implemented yet");
     }
-
     /**
      * TERMS:
      * Checks if typed name of existing psychic forward to right URL

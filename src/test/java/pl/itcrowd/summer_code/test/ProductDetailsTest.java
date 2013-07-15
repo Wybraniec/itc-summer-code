@@ -1,13 +1,31 @@
 package pl.itcrowd.summer_code.test;
 
-import junit.framework.Assert;
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.spi.annotations.Page;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+
+import static junit.framework.Assert.*;
 
 
 @RunWith(Arquillian.class)
 public class ProductDetailsTest {
+
+    @Drone
+    WebDriver browser;
+
+    @Page
+    ProductDetails productDetails;
+
+    @Page
+    LoginPage loginPage;
+
+    @Before
+    public void beforeTests()
+    {}
 
     /**TERMS
      * Test check if product name is displayed
@@ -20,7 +38,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productNameTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+
+        //Then
+        assertEquals("atest3", productDetails.getName());
     }
 
     /**TERMS
@@ -34,7 +57,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productDescriptionTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+
+        //Then
+        assertEquals("atest3 atest3", productDetails.getDescription());
     }
 
     /**TERMS
@@ -50,7 +78,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productImageClickTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        String imgUrl = productDetails.getThumbnail(0).getImgUrl();
+        //Then
+        assertEquals("https://itcrowd.pl/vop/photo?id=27", imgUrl);
     }
 
     /**TERMS
@@ -65,7 +98,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productThumbnailClickTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/65");
+        //When
+        productDetails.getThumbnail(1).clickThumbnail();
+        String imgUrl = productDetails.getThumbnail(1).getImgUrl();
+        //Then
+        assertEquals("https://itcrowd.pl/vop/photo?id=29", imgUrl);
     }
 
     /**TERMS
@@ -79,7 +118,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void sellerNickNameTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        String sellerName = productDetails.getName();
+        String emptyString = "";
+        //Then
+        assertFalse(emptyString.equals(sellerName));
     }
 
     /**TERMS
@@ -94,7 +139,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void sellerStatusTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        boolean status =  productDetails.statusOnline();
+        //When
+
+        //Then
+        assertFalse(status);
     }
 
     /**TERMS
@@ -108,7 +159,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void sellerCountryTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        String emptyString = "";
+        //Then
+        assertFalse(emptyString.equals(productDetails.getCountryOfSeller()));
+
     }
 
     /**TERMS
@@ -122,7 +179,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void ClickToPsychicProfileCLickTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        //User must be logout
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        productDetails.clickPsychicProfile();
+        //Then
+        assertEquals("https://itcrowd.pl/vop/atest3", browser.getCurrentUrl());
     }
 
     /**TERMS
@@ -137,7 +200,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void emailCLickTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        productDetails.emailClick();
+        //Then
+        assertTrue(browser.getCurrentUrl().startsWith("https://itcrowd.pl/vop/private/createMessage"));
     }
 
     /**TERMS
@@ -152,7 +220,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void ChatClickByNotLoggedUserTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        productDetails.chatClick();
+        //Then
+        assertTrue(browser.getCurrentUrl().startsWith("https://itcrowd.pl/vop/login"));
     }
 
     /**TERMS
@@ -168,7 +241,17 @@ public class ProductDetailsTest {
      */
     @ Test
     public void ChatClickBytLoggedUserTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/login");
+        loginPage.setEmailInput("customertest2@itcrowd.pl");
+        loginPage.setPasswordInput("aaaaaa");
+        loginPage.submitButtonClick();
+
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        productDetails.chatClick();
+        //Then
+        assertTrue(productDetails.isPopUpVisible());
     }
 
     /**TERMS
@@ -185,8 +268,19 @@ public class ProductDetailsTest {
      * Check if Chat box is displayed.
      */
     @ Test
-    public void chatForFreeTest(){
-        Assert.fail("Not implemented yet.");
+    public void chatForFreeTest(){    //TODO
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/login");
+        loginPage.setEmailInput("customertest2@itcrowd.pl");
+        loginPage.setPasswordInput("aaaaaa");
+        loginPage.submitButtonClick();
+
+        browser.navigate().to("https://itcrowd.pl/vop/product/1");
+        //When
+        productDetails.chatClick();
+        productDetails.clickChatForFreeButton();
+        //Then
+        assertTrue(productDetails.isPendingModalVisible());
     }
 
     /**TERMS
@@ -203,7 +297,19 @@ public class ProductDetailsTest {
      */
     @ Test
     public void ChatBuyCreditsTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/login");
+
+        loginPage.setEmailInput("customerTest1@itcrowd.pl");
+        loginPage.setPasswordInput("aaaaaa");
+        loginPage.submitButtonClick();
+
+        browser.navigate().to("https://itcrowd.pl/vop/product/1");
+        //When
+        productDetails.chatClick();
+        productDetails.clickBuyMoreCreditsBtn();
+        //Then
+        assertEquals("https://itcrowd.pl/vop/private/buyCredits", browser.getCurrentUrl());
     }
 
     /**TERMS
@@ -217,7 +323,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productPriceTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/64");
+        //When
+        String emptyString = "";
+        //Then
+        assertFalse(emptyString.equals(productDetails.getPrice()));
     }
 
     /**TERMS
@@ -231,7 +342,12 @@ public class ProductDetailsTest {
      */
     @ Test
     public void productAvailabilityTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+
+        //Then
+        assertEquals("2 available", productDetails.getNumberOfavailableProduct());
     }
 
     /**TERMS
@@ -247,7 +363,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void addToCartNoQuantityTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+        productDetails.setInput("");
+        productDetails.addToCartClick();
+        //Then
+        assertEquals("Wrong quantity value!", productDetails.getWrongQuantityModal());
     }
 
     /**TERMS
@@ -264,7 +386,15 @@ public class ProductDetailsTest {
      */
     @ Test
     public void addToCartToMuchQuantityTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+        Integer numberOfItems = Integer.parseInt(productDetails.getNumberOfavailableProduct().substring(0,1));
+        numberOfItems++;
+        productDetails.setInput(numberOfItems.toString());
+        productDetails.addToCartClick();
+        //Then
+        assertEquals("Desired quantity is greater than actual product quantity! You can buy max 2.", productDetails.getWrongQuantityModal());
     }
 
     /**TERMS
@@ -281,7 +411,14 @@ public class ProductDetailsTest {
      */
     @ Test
     public void addToCartValidQuantityTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+        Integer numberOfItems = Integer.parseInt(productDetails.getNumberOfavailableProduct().substring(0,1));
+        productDetails.setInput(numberOfItems.toString());
+        productDetails.addToCartClick();
+        //Then
+        assertEquals("https://itcrowd.pl/vop/product/56", browser.getCurrentUrl());
     }
 
     /**TERMS
@@ -296,7 +433,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void readMoreClickTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+        productDetails.readMoreClick();
+        String modalText = productDetails.getModalPolicyText();
+        //Then
+        assertFalse(modalText.isEmpty());
     }
 
     /**TERMS
@@ -312,7 +455,13 @@ public class ProductDetailsTest {
      */
     @ Test
     public void ReturnPolicyCloseTest(){
-        Assert.fail("Not implemented yet.");
+        //Given
+        browser.navigate().to("https://itcrowd.pl/vop/product/56");
+        //When
+        productDetails.readMoreClick();
+        productDetails.clickQuitPolicyModal();
+        //Then
+        assertTrue(productDetails.isPolicyModalVisible());
     }
 
 }

@@ -18,9 +18,6 @@ public class LoginPage {
     @FindBy(css = "#lF div.form-actions > input")
     private WebElement submitButton;
 
-    @FindBy(css = "#row-fluid form.headerForm ul:nth-of-type(1) li:nth-of-type(3) > a")
-    private WebElement welcomeUserButton;
-
     @FindBy(id = "lF:e:message1")
     private WebElement emptyEmailInputMessage;
 
@@ -42,6 +39,8 @@ public class LoginPage {
     @FindBy(css = "#lF div.form-actions dLinkiv:nth-of-type(2) > a")
     private WebElement resendActivationMailLink;
 
+    @FindBy(css = "#wrap div:nth-of-type(1) div div div:nth-of-type(1) form ul li:nth-of-type(3)")
+    private WebElement welcomeUserButton;
 
     public void setEmailInput(String email){
         emailInput.clear();
@@ -49,13 +48,10 @@ public class LoginPage {
     }
     public void setPasswordInput(String password){
         passwordInput.clear();
-        emailInput.sendKeys(password);
+        passwordInput.sendKeys(password);
     }
     public void submitButtonClick(){
         guardHttp(submitButton).click();
-    }
-    public boolean isLoggedIn(){
-        return welcomeUserButton.isDisplayed();
     }
     public boolean isEmptyEmailMessageDisplayed(){
         return emptyEmailInputMessage.isDisplayed();
@@ -86,5 +82,8 @@ public class LoginPage {
     }
     public String getPopUpText(int number){
         return popUps.get(number).getText();
+    }
+    public boolean isLoggedIn(){
+        return welcomeUserButton.getText().startsWith("Welcome");
     }
 }
